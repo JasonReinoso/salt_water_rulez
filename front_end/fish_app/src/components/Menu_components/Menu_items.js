@@ -4,27 +4,27 @@ export const MenuItem = [
     {
         title: "Home",
       
-        // path: "/"
+         path: "/"
 
     },
     
     {
         title: "Regulations",
        
-     //   path: "/Deck"
+        path: "/Regulations"
 
     },
     {
         title: "Logs",
       
-       // path: "/Test"
+        path: "/Log"
 
     },
 
     {
         title: "Tides",
        
-      //  path: "/Test"
+        path: "/"
 
     },
     
