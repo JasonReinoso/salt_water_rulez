@@ -40,13 +40,15 @@ for nj_tbody in NJ_fishingLmit_table.find_all('tbody'):
 
 
 ###############DELWARE WEBSCRAPE##############
+###could and should be refactored
 #https://www.eregulations.com/delaware/fishing/tidal-seasons-size-creel-limits
 Delware_page_scrape = requests.get("https://www.eregulations.com/delaware/fishing/tidal-seasons-size-creel-limits")
 DE_soup = BeautifulSoup(Delware_page_scrape.text,'html.parser')
 DE_fishinglimit_Table = DE_soup.find('table',id='table007')
 
 not_processed_DE_fisinginfromation =[]
-
+## this part... should skip the first two row of the table and then break when it sees the 
+##crab section
 for DE_tbody in DE_fishinglimit_Table.find_all('tbody'):
     rows = DE_tbody.find_all('tr')
     for row in rows:
@@ -59,7 +61,8 @@ del not_processed_DE_fisinginfromation[0]
 
 
 DE_fisinginfromation =[]
-
+###as a result of doing the first part, this part of the code
+## isnt neccessary anymore.
 for i in range(len(not_processed_DE_fisinginfromation)):
     if not_processed_DE_fisinginfromation[i][0] == 'Species':
         break

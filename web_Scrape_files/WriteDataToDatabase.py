@@ -40,6 +40,7 @@ for i in range(len(NY_fish_information)):
 for x in range(len(nj_fishinformation)):
     mycursor.execute(add_fish,(nj_fishinformation[x][0],nj_fishinformation[x][2],nj_fishinformation[x][3],nj_fishinformation[x][1],"nj"))
 
+
 for x in range(len(DE_fisinginfromation)):
     if len(DE_fisinginfromation[x]) < 5:
         mycursor.execute(add_fish,(DE_fisinginfromation[x][1],"prohibited","prohibited","prohibited","de"))
