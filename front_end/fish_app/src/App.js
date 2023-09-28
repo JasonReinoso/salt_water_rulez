@@ -1,10 +1,10 @@
-import logo from './logo.svg';
-import './App.css';
 
+import './App.css';
+import Menu from './components/Menu_components/Menu';
 function App() {
   return (
     <div className="App">
-      <h1>test!!</h1>
+      <Menu />
     </div>
   );
 }
