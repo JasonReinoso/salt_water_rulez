@@ -1,6 +1,6 @@
 import React from 'react'
 import { MenuItem } from './Menu_items'
-import { Link } from 'react-router-dom'
+import { Link } from 'react-router-dom' 
 import "./Navstyles.css"
 function NavBar() {
   return (
