@@ -4,10 +4,10 @@ from NY_webscrape import nj_fishinformation
 from NY_webscrape import NY_fish_information
 from NY_webscrape import DE_fisinginfromation
 db = mysql.connector.connect(
-    host="localhost",
+    host="database-1.caocet4m0xd5.us-east-2.rds.amazonaws.com",
     user="root",
     passwd ="studentplanner321",
-    database="salt_water_db"
+    database="salt_water_rulez"
 )
 
 mycursor = db.cursor()
@@ -20,7 +20,7 @@ mycursor.execute(delete_fish_table)
 
 
 ##create fish_regulations
-create_fish_table = ("create table fish_regulations( fish_species varchar(255), size_limit varchar(255), Daily_possession_Limit varchar(255), open_season varchar(1000), state_id varchar(2), Foreign key(state_id) references states(state_id))")
+create_fish_table = ("create table fish_regulations( fish_species varchar(255), size_limit varchar(255), Daily_possession_Limit varchar(255), open_season varchar(1000), state_id varchar(2), Foreign key(state_id) references States(state_id))")
 mycursor.execute(create_fish_table)
 
 ### inserts fish info from webscrape.py
