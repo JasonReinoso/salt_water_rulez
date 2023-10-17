@@ -18,6 +18,6 @@ export async function getregulation(){
 
 export async function getStates()
 {
-    const [ListOfStates] = await pool.query("select * from States");
+    const [ListOfStates] = await pool.query("select state_id from States");
     return ListOfStates;
 }
