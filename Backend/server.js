@@ -1,17 +1,18 @@
 const express = require('express')
-
-
-//  express app 
 const app = express()
 
+import  dotenv from 'dotenv'
+export {getregulation};
 
-app.get('/', (req,res)=>{
-    res.json({mssg: 'weclome'})
-})
+const pool = mysql2.createPool({
+    host: process.env.MYSQL_HOST, 
+    user: process.env.MYSQL_USER,
+    password: process.env.MYSQL_PASSWORD,
+    database: process.env.MYSQL_DATABASE
+    }).promise()
 
-
-//listen to request
-app.listen(4000,()=>{
-    console.log('lis222tening')
-})
+    export async function getregulation(){
+        const [row] = await pool.query("select * from States")
+        return row;
+    }
 
