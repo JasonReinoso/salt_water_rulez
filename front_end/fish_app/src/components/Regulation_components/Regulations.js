@@ -4,28 +4,43 @@ import axios  from 'axios'
 function Regulations() {
 
   const [rules, setRules] = useState([]);
+ 
+  const [States,setStates] = useState([]);
 
-  useEffect(()=>{
-   
-    console.log("hi");
-  },[])
+
+  async function getregulation(value){
+    const response = await axios.get("http://localhost:4000/regulations/"+value);
+    
+
+    
+  }
 
   async function getStates(){
     const response = await axios.get("http://localhost:4000/states");
-    const result = response.data;
-    console.log(result);
+     setStates(response.data);
   }
+
+
+  useEffect( ()=>{
+     getStates();
+     console.log(States);
+  },[])
+
+ 
 
   return (
     <div className='Regulations'>
       Regulations
       <label> Choose a state</label>
-      <select className='menuforstates'>
-        <option value="state">ny</option>
-        <option value="state">ny</option>
-        <option value="state">ny</option>
+      <select className='menuforstates' onChange={(e)=>{getregulation(e.target.value)}}>
+        {States.map((item)=>{
+          return(
+            <option value={item.state_id} >{item.state_id}</option>
+          )
+        })}
+       
       </select>
-      <button onClick={getStates}></button>
+      <button onClick={()=>console.log(States[0].state_id)}></button>
     </div>
   )
 }

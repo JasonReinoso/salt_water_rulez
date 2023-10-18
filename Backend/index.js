@@ -3,7 +3,7 @@ import axios from "axios";
 import bodyParser from "body-parser";
 import mysql2 from "mysql2";
 import dotenv from 'dotenv';
-import {getregulation,getStates } from "./server.js";
+import {getregulation,getregulationbystate,getStates } from "./server.js";
 import cors from 'cors';
 dotenv.config();
 
@@ -15,9 +15,16 @@ app.get('/', (req,res)=>{
 })
 
 app.get("/regulations", async (req,res)=>{
+   
     const regulations = await getregulation();
     res.send(regulations)
-    console.log(regulations);
+    
+})
+
+app.get("/regulations/:state", async (req,res)=>{
+    const state = req.params.state;
+    const regulations = await getregulationbystate(state);
+    res.send(regulations);    
 })
 
 app.get("/states", async (req,res)=>{
