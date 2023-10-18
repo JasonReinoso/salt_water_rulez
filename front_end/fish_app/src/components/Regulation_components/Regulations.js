@@ -1,6 +1,7 @@
 import React from 'react'
 import {useState,useEffect}  from 'react';
 import axios  from 'axios'
+import Regulation_Table from './Regulation_Table.js';
 function Regulations() {
 
   const [rules, setRules] = useState([]);
@@ -10,7 +11,7 @@ function Regulations() {
 
   async function getregulation(value){
     const response = await axios.get("http://localhost:4000/regulations/"+value);
-    
+    setRules(response.data);
 
     
   }
@@ -40,7 +41,8 @@ function Regulations() {
         })}
        
       </select>
-      <button onClick={()=>console.log(States[0].state_id)}></button>
+      <Regulation_Table Regulations= {rules}/>
+      
     </div>
   )
 }
