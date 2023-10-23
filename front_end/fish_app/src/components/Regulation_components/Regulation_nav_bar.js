@@ -9,14 +9,6 @@ function Regulation_nav_bar() {
   
   return (
     <div className='Regulation_nav_bar'>
-        <a className='site-title'>Salt Water Rulez</a>
-        <ul className='Regulation_ul'>
-            <li>Profile</li>
-            <li ><button onClick={()=>{Setpopmenu(!popupmenu)}}> Menu </button>
-            {popupmenu && <PopupMenu/>}
-            </li>
-            
-        </ul>
       
     </div>
   )
