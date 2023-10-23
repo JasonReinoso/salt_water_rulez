@@ -3,13 +3,15 @@ import './Regulations.css'
 import { useState } from 'react'
 import PopupMenu from './PopupMenu';
 
-function Regulation_nav_bar() {
+function Regulation_nav_bar(props) {
 
   const [popupmenu,Setpopmenu] = useState(false);
   
   return (
     <div className='Regulation_nav_bar'>
-      
+      <ul className='navbar-nav'> 
+        {props.children}
+      </ul>
     </div>
   )
 }
