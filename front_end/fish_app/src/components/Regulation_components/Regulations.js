@@ -2,6 +2,8 @@ import React from 'react'
 import {useState,useEffect}  from 'react';
 import axios  from 'axios'
 import Regulation_Table from './Regulation_Table.js';
+import State_selector from './State_selector.js';
+import Regulation_nav_bar from './Regulation_nav_bar.js';
 function Regulations() {
 
   const [rules, setRules] = useState([]);
@@ -31,16 +33,9 @@ function Regulations() {
 
   return (
     <div className='Regulations'>
+      <Regulation_nav_bar/>
       Regulations
-      <label> Choose a state</label>
-      <select className='menuforstates' onChange={(e)=>{getregulation(e.target.value)}}>
-        {States.map((item)=>{
-          return(
-            <option value={item.state_id} >{item.state_id}</option>
-          )
-        })}
-       
-      </select>
+      <State_selector States ={States} getregulation ={getregulation} />
       <Regulation_Table Regulations= {rules}/>
       
     </div>

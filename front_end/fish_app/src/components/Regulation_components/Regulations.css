@@ -1,6 +1,45 @@
 .regulation_table{
+   
     border:1px solid black;
     display: flex;
     justify-content: center;
     align-items: center;
+    
 }
+
+thead{
+    background-color: aquamarine;
+}
+
+td{
+    border:1px solid black;
+    padding: 5px;
+}
+
+tr:hover{
+    background-color: coral;
+}
+
+.Regulation_nav_bar{
+    display: flex;
+    background-color: black;
+    color:white;
+    justify-content: space-between;
+    align-items: center;
+
+}
+
+.Regulation_ul{
+    list-style: none; 
+    padding-right: 1rem;
+    display: flex;
+    gap: 1rem;
+}
+
+button{
+    background-color: black;
+    color: white;
+    border:0cap;
+}
+
+
