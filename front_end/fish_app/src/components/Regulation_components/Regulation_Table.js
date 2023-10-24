@@ -2,8 +2,8 @@ import React from 'react'
 import './Regulations.css'
 function Regulation_Table(props) {
   return (
-    <div className='regulation_table'>
-        <table>
+    <div className='regulation'>
+        <table className='regulation_table'>
             <thead>
                 <tr>
                     <td>Fish species</td>

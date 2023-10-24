@@ -48,8 +48,8 @@ function Regulations() {
 
       </Regulation_nav_bar>
 
-      Regulations
       
+      <a className='page-title'>Regulation</a>
       <State_selector States ={States} getregulation ={getregulation} />
       <Regulation_Table Regulations= {rules}/>
       
