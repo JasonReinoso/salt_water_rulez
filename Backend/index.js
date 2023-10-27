@@ -3,13 +3,14 @@ import axios from "axios";
 import bodyParser from "body-parser";
 import mysql2 from "mysql2";
 import dotenv from 'dotenv';
-import {getregulation,getregulationbystate,getStates } from "./server.js";
+import {getregulation,getregulationbystate,getStates, sendlog } from "./server.js";
 import cors from 'cors';
 dotenv.config();
 
 const app = express();
 app.use(bodyParser.urlencoded({extended:true}));
 app.use(cors());
+
 app.get('/', (req,res)=>{
     res.json({mssg: 'weclome'})
 })
@@ -26,11 +27,22 @@ app.get("/regulations/:state", async (req,res)=>{
     const regulations = await getregulationbystate(state);
     res.send(regulations);    
 })
-
+4
 app.get("/states", async (req,res)=>{
     const ListOfStates = await getStates();
     res.send(ListOfStates);
 })
+
+app.post("/logs",  (req,res)=>{
+   
+    sendlog(req.body)
+    res.sendStatus(201);
+
+    res.end();
+
+});
+
+
 
 
 

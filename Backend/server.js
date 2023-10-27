@@ -12,6 +12,9 @@ dotenv.config();
     database: process.env.MYSQL_DATABASE
     }).promise()
 
+
+  var InsertIntoLog = 'INSERT INTO Log(picture,released,TypeofFish,weight,length,tools,FishMethod,fecha,username,weather) VALUES(?,?,?,?,?,?,?,?,?,?)';
+
 export async function getregulation(){
     const [fish_regulations] = await pool.query("select * from fish_regulations")
     return fish_regulations;
@@ -26,4 +29,10 @@ export async function getStates()
 {
     const [ListOfStates] = await pool.query("select state_id from States");
     return ListOfStates;
+}
+
+export  function sendlog(log)
+{
+    pool.query(InsertIntoLog,[log.picture,log.release,log.TypeofFish,log.weight,log.length,log.tools,log.FishMethod,log.fecha,log.username,log.weather])
+   
 }
