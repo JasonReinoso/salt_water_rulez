@@ -1,0 +1,31 @@
+.Popup{
+    position: fixed;
+    top:0;
+    left:0;
+    width:100%;
+    height: 100vh;
+    background-color: rgba(0,0,0,.2);
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.popup-inner{
+    
+    position:fixed;
+    width: 700px;
+    height: 700px;
+    max-height: 700px;
+    max-width: 700px;
+    background-color: #fff;
+
+    display: grid;
+    grid-template-rows: (7,1fr);
+}
+
+.Close{
+    position: absolute;
+    top:5px;
+    right:5px;
+}
