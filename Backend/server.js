@@ -33,6 +33,6 @@ export async function getStates()
 
 export  function sendlog(log)
 {
-    pool.query(InsertIntoLog,[log.picture,log.release,log.TypeofFish,log.weight,log.length,log.tools,log.FishMethod,log.fecha,log.username,log.weather])
+    pool.query(InsertIntoLog,["picture",log.Fish_Released,log.Fish_Species,log.weight,log.Length,log.Equipment,log.Fish_Method,log.Date,"username","weather"])
    
 }

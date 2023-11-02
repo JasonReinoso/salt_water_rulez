@@ -1,45 +1,77 @@
 import React from 'react'
 import './popup.css'
+import { useState } from 'react'
+import axios from 'axios';
+
 function CreateLogpopup(props) {
+
+  const [Fish_Species,Set_Fish_Species] = useState("");
+  const [Image,SetImage] = useState("Test");
+  const [Fish_Released,Set_Fish_Released] = useState("");
+  const [Fish_Method,Set_Fish_Method] = useState("");
+  const [weight,Set_Weight] = useState("");
+  const [Length,Set_Length] = useState("");
+  const [Equipment, Set_Equipment] = useState("");
+  const [Weather, Set_Weather] = useState("");
+  const [Date,Set_Date] = useState("");
+
+  async function onSubmit(e) {
+    e.preventDefault();
+
+    const formData = new FormData();
+    formData.append('file',Image);
+
+    const Fish_object ={Fish_Species,Fish_Released,Fish_Method,weight,Length,Equipment,Weather,Date,formData};
+    console.log(Fish_object);
+    console.log(formData.get('file'));
+    await axios.post("http://localhost:4000/logs",formData);
+   // await  axios.post("http://localhost:4000/logs",Fish_object);
+  }
+
   return (
     <div className='Popup'>
         <div className='popup-inner'>
             CreateLogpopup 
             <button className ="Close" onClick={()=>props.SetPopMenu(!props.popup)}>Close</button>
+           
             <div className='Fish_Species'>
                 <label>Fish Species: </label>
-                <input type='text'></input>
+                <input type='text' onChange={(e)=>Set_Fish_Species(e.target.value)}></input>
+            </div>
+            <div className='Fish_image'>
+                <label>Image: </label>
+                <input type="file" name="image" accept="image/*" onChange={(e)=>SetImage(e.target.files[0])} ></input>
             </div>
             <div className='Fish_Released'>
                 <label>Fish Released?</label>
-                <button>Released</button> <button>Harvested</button>
+                <button onClick={()=>Set_Fish_Released("Released")}>Released</button>   <button onClick={()=>Set_Fish_Released("Harvested")}>Harvested</button>
             </div>
             <div className='Fish_Method'>
                 <label>Fishing Method</label>
-                <input type='text'></input>
+                <input type='text'  onChange={(e)=>Set_Fish_Method(e.target.value)}></input>
             </div>
             <div className='weight'>
                 <label>weight</label>
-                <input type='number' min="0"></input>
+                <input type='number' min="0"   onChange={(e)=>Set_Weight(e.target.value)}></input>
             </div>
             <div className='Length'>
                 <label>Length</label>
-                <input type='number' min="0"></input>
+                <input type='number' min="0"  onChange={(e)=>Set_Length(e.target.value)}></input>
             </div>
             <div className='Equipment'>
                 <label>Equipment</label>
-                <input type='text'></input>
+                <input type='text' onChange={(e)=>Set_Equipment(e.target.value)}></input>
             </div>
             <div className='Weather'>
                 <label>Weather</label> 
             </div>
             <div className='Date'>
                 <label>Date: </label>
-                <input type='Date'></input>
+                <input type='Date' onChange={(e)=>Set_Date(e.target.value)}></input>
             </div>
-            
-
         
+
+            <button onClick={onSubmit}> Submit</button>
         </div>
     </div>
   )

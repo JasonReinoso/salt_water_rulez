@@ -5,10 +5,12 @@ import mysql2 from "mysql2";
 import dotenv from 'dotenv';
 import {getregulation,getregulationbystate,getStates, sendlog } from "./server.js";
 import cors from 'cors';
+import multer from "multer";
 dotenv.config();
 
 const app = express();
 app.use(bodyParser.urlencoded({extended:true}));
+app.use(bodyParser.json());
 app.use(cors());
 
 app.get('/', (req,res)=>{
@@ -33,9 +35,22 @@ app.get("/states", async (req,res)=>{
     res.send(ListOfStates);
 })
 
-app.post("/logs",  (req,res)=>{
+const storage = multer.diskStorage({
+    destination: function(req,file,cb){
+        return cb(null,"./Images")
+    },
+    filename: function(req,file,cb){
+        return cb(null,`${Date.now()}_${file.originalname}`)
+    }
+})
+
+const upload = multer({storage});
+
+app.post("/logs",  upload.single('file'), (req,res)=>{
    
-    sendlog(req.body)
+    console.log(req.body)
+    console.log(req.file);
+   // sendlog(req.body)
     res.sendStatus(201);
 
     res.end();
