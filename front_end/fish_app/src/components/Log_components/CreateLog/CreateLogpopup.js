@@ -20,12 +20,19 @@ function CreateLogpopup(props) {
 
     const formData = new FormData();
     formData.append('file',Image);
+    formData.append('Fish_Species', Fish_Species);
+    formData.append('Fish_Released', Fish_Released);
+    formData.append('Fish_Method', Fish_Method);
+    formData.append('weight', weight);
+    formData.append('Length',Length);
+    formData.append('Equipment',Equipment);
+    formData.append('Weather',Weather);
+    formData.append('Date',Date);
 
-    const Fish_object ={Fish_Species,Fish_Released,Fish_Method,weight,Length,Equipment,Weather,Date,formData};
-    console.log(Fish_object);
-    console.log(formData.get('file'));
-    await axios.post("http://localhost:4000/logs",formData);
-   // await  axios.post("http://localhost:4000/logs",Fish_object);
+   await axios.post("http://localhost:4000/logs",formData,{
+    headers:{
+        'Content-Type':'multipart/form-data',
+    }})
   }
 
   return (
