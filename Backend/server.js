@@ -31,8 +31,8 @@ export async function getStates()
     return ListOfStates;
 }
 
-export  function sendlog(log)
+export  function sendlog(log, filepath)
 {
-    pool.query(InsertIntoLog,["picture",log.Fish_Released,log.Fish_Species,log.weight,log.Length,log.Equipment,log.Fish_Method,log.Date,"username","weather"])
+    pool.query(InsertIntoLog,[filepath,log.Fish_Released,log.Fish_Species,log.weight,log.Length,log.Equipment,log.Fish_Method,log.Date,"username","weather"])
    
 }

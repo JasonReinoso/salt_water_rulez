@@ -49,8 +49,10 @@ const upload = multer({storage});
 app.post("/logs",  upload.single('file'), (req,res)=>{
     console.log(req.file);
     console.log(req.body)
+    const METADATA = req.file;
+    const imagefilepath = "./Images" + `${Date.now()}_${req.file.originalname}`;
     //console.log(req.file);
-   // sendlog(req.body)
+    sendlog(req.body, imagefilepath);
     res.sendStatus(201);
     
     res.end();

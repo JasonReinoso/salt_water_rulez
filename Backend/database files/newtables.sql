@@ -9,7 +9,7 @@ primary key(state_id)
 
 create table Log(
 Id int auto_increment,
-picture varchar(40),
+picture varchar(255),
 released boolean,
 TypeofFish varchar(100),
 weight double,
