@@ -4,6 +4,7 @@ import bodyParser from "body-parser";
 import mysql2 from "mysql2";
 import dotenv from 'dotenv';
 import {getregulation,getregulationbystate,getStates, sendlog } from "./server.js";
+import {getlogs} from './server.js';
 import cors from 'cors';
 import multer from "multer";
 dotenv.config();
@@ -59,7 +60,18 @@ app.post("/logs",  upload.single('file'), (req,res)=>{
 
 });
 
+app.get("/Getlogs", async (req,res)=>{
+  const Logs = await getlogs();
+  res.send(Logs);
+})
 
+
+app.get("/picture", async (req,res)=>{
+   console.log("ss");
+    const picture = "./Images1699070831784_FA8OvTuXIAQEUzo.jpg"
+    res.sendFile(picture);
+   //res.sendStatus(200);
+})
 
 
 

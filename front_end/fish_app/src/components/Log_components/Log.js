@@ -2,6 +2,7 @@ import React from 'react'
 import { useState } from 'react'
 import CreateLogpopup from './CreateLog/CreateLogpopup';
 import ViewLog from './ViewLog';
+
 function Log() {
   const [popup,SetPopMenu] = useState(false);
   return (

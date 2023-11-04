@@ -36,3 +36,10 @@ export  function sendlog(log, filepath)
     pool.query(InsertIntoLog,[filepath,log.Fish_Released,log.Fish_Species,log.weight,log.Length,log.Equipment,log.Fish_Method,log.Date,"username","weather"])
    
 }
+
+export async function getlogs()
+{
+    console.log("Test");
+    const [Logs] = await pool.query("Select * from Log where username = ?",["username"]);
+    return Logs;
+}
