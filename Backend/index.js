@@ -7,12 +7,21 @@ import {getregulation,getregulationbystate,getStates, sendlog } from "./server.j
 import {getlogs} from './server.js';
 import cors from 'cors';
 import multer from "multer";
+import {dirname} from 'path';
+import { fileURLToPath } from "url";
+
+
+const __dirname = dirname(fileURLToPath(import.meta.url));
 dotenv.config();
 
 const app = express();
 app.use(bodyParser.urlencoded({extended:true}));
 app.use(bodyParser.json());
 app.use(cors());
+app.use(express.static('Images'));
+
+var DATENOWfilename;
+
 
 app.get('/', (req,res)=>{
     res.json({mssg: 'weclome'})
@@ -41,7 +50,8 @@ const storage = multer.diskStorage({
         return cb(null,"./Images")
     },
     filename: function(req,file,cb){
-        return cb(null,`${Date.now()}_${file.originalname}`)
+        DATENOWfilename = `${Date.now()}_${file.originalname}`;
+        return cb(null,DATENOWfilename);
     }
 })
 
@@ -51,7 +61,7 @@ app.post("/logs",  upload.single('file'), (req,res)=>{
     console.log(req.file);
     console.log(req.body)
     const METADATA = req.file;
-    const imagefilepath = "./Images" + `${Date.now()}_${req.file.originalname}`;
+    const imagefilepath = "/Images/" + DATENOWfilename;
     //console.log(req.file);
     sendlog(req.body, imagefilepath);
     res.sendStatus(201);
@@ -67,10 +77,12 @@ app.get("/Getlogs", async (req,res)=>{
 
 
 app.get("/picture", async (req,res)=>{
-   console.log("ss");
-    const picture = "./Images1699070831784_FA8OvTuXIAQEUzo.jpg"
+
+    const logs = await getlogs();
+    console.log(logs);
+    const picture = __dirname + logs[0].picture;
     res.sendFile(picture);
-   //res.sendStatus(200);
+  // res.sendStatus(200);
 })
 
 
