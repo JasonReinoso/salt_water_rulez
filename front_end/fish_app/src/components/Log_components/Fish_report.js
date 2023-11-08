@@ -6,9 +6,10 @@ function Fish_report(props) {
         <a>{props.children.fecha}</a>
         <a>{props.children.TypeofFish}</a> 
         <a>{props.children.length}</a>
+        <img src={`http://localhost:4000/picture/${props.children.picture}`} className='fish_pic'></img>
         <label>{props.children.weight}</label>
         <label> {props.children.weight}</label>
-
+  
         <label>{props.children.tools}</label>
     </div>
   )

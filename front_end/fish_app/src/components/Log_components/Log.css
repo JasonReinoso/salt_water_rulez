@@ -24,3 +24,8 @@
     display: flex;
     flex-direction: column;
 }
+
+.fish_pic{
+ height: 300px;
+ width:300px;
+}

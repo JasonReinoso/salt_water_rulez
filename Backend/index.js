@@ -1,7 +1,5 @@
 import express,  {response} from "express";
-import axios from "axios";
 import bodyParser from "body-parser";
-import mysql2 from "mysql2";
 import dotenv from 'dotenv';
 import {getregulation,getregulationbystate,getStates, sendlog } from "./server.js";
 import {getlogs} from './server.js';
@@ -61,7 +59,7 @@ app.post("/logs",  upload.single('file'), (req,res)=>{
     console.log(req.file);
     console.log(req.body)
     const METADATA = req.file;
-    const imagefilepath = "/Images/" + DATENOWfilename;
+    const imagefilepath =  DATENOWfilename;
     //console.log(req.file);
     sendlog(req.body, imagefilepath);
     res.sendStatus(201);
@@ -76,13 +74,11 @@ app.get("/Getlogs", async (req,res)=>{
 })
 
 
-app.get("/picture", async (req,res)=>{
-
-    const logs = await getlogs();
-    console.log(logs);
-    const picture = __dirname + logs[0].picture;
-    res.sendFile(picture);
-  // res.sendStatus(200);
+app.get("/picture/:imagename", async (req,res)=>{ 
+    const picturename = req.params.imagename;
+    const picturepath = __dirname + "/Images/" + picturename;
+    console.log(picturepath);
+    res.sendFile(picturepath);
 })
 
 

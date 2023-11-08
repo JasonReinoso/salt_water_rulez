@@ -39,7 +39,7 @@ export  function sendlog(log, filepath)
 
 export async function getlogs()
 {
-    console.log("Test");
+   
     const [Logs] = await pool.query("Select * from Log where username = ?",["username"]);
     return Logs;
 }
