@@ -26,6 +26,16 @@
 
 .Close{
     position: absolute;
+    color: red;
     top:5px;
     right:5px;
+}
+
+.Harvested{
+    background-color: red;
+
+}
+
+.Released{
+    background-color: aqua;
 }
