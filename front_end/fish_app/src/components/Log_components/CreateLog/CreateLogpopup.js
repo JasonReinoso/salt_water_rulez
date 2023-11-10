@@ -15,6 +15,12 @@ function CreateLogpopup(props) {
   const [Weather, Set_Weather] = useState("");
   const [Date,Set_Date] = useState("");
 
+  async function getlogs()
+  {
+    const response = await axios.get("http://localhost:4000/Getlogs");
+    props.Setfishlogs(response.data) 
+  }
+
   async function onSubmit(e) {
     e.preventDefault();
 
@@ -27,6 +33,7 @@ function CreateLogpopup(props) {
     }})
 
     props.SetPopMenu(!props.popup);
+    getlogs();
 
   }
 
@@ -55,15 +62,13 @@ function CreateLogpopup(props) {
             <InputFieldNumerical label='weight' typeofinput='number' classname='weight' setter={Set_Weight}></InputFieldNumerical>
             
             <InputFieldNumerical label='Length' typeofinput='number' classname='weight' setter={Set_Length}></InputFieldNumerical>
-            <div className='Length'>
-                <label>Length</label>
-                <input type='number' min="0"  onChange={(e)=>Set_Length(e.target.value)}></input>
-            </div>
+          
             <InputField label ='Equipment' typeofinput='text' classname='Equipment' setter={Set_Equipment}></InputField>
             
             <div className='Weather'>
                 <label>Weather</label> 
             </div>
+
             <InputField label ='Date' typeofinput='Date' classname='Equipment' setter={Set_Date}></InputField>
 
             <button onClick={onSubmit}> Submit</button>

@@ -1,14 +1,12 @@
-import React, {useState, useEffect} from 'react'
+import React, {useState, useEffect,useContext} from 'react'
 import axios from 'axios';
 import Fish_report from './Fish_report';
 
+
 import './Log.css'
-function ViewLog() {
-  const [fishlogs, Setfishlogs] = useState([]);
+function ViewLog({fishlogs, Setfishlogs}) {
 
 
-  
- 
   async function getlogs()
   {
     const response = await axios.get("http://localhost:4000/Getlogs");
