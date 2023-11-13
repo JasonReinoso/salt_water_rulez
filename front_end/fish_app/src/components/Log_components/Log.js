@@ -2,7 +2,7 @@ import React from 'react'
 import {  useState  } from 'react'
 import CreateLogpopup from './CreateLog/CreateLogpopup';
 import ViewLog from './ViewLog';
-
+import ButtonToCreateLog from './ButtonToCreateLog';
 
 
 function Log() {
@@ -14,7 +14,7 @@ function Log() {
       <div className='Log'>
         Log
         {popup && <CreateLogpopup SetPopMenu = {SetPopMenu} popup ={popup} Setfishlogs={Setfishlogs} />}
-        <button onClick={()=>SetPopMenu(!popup)}>Create Log</button>
+        <ButtonToCreateLog popup={popup} SetPopMenu={SetPopMenu}></ButtonToCreateLog>
         <ViewLog fishlogs={fishlogs} Setfishlogs={Setfishlogs}/>
       </div>
     

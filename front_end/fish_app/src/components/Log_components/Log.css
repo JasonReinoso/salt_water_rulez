@@ -15,17 +15,61 @@
     display: flex;
     flex-direction: column;
     flex-wrap: wrap;
+    margin-bottom: 15px;
 
 
 }
 
 .Fish_report{
-    color:red;
+    color:black;
     display: flex;
     flex-direction: column;
 }
 
 .fish_pic{
- height: 300px;
- width:300px;
+ height: 400px;
+ width:700px;
+ align-self: center;
+}
+
+.ButtonToCreateLog{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 10px;
+} 
+
+.ButtonToCreateLog .butt {
+    background-image: linear-gradient(-180deg, #37AEE2 0%, #1E96C8 100%);
+    border-radius: .5rem;
+    box-sizing: border-box;
+    color: #FFFFFF;
+    display: flex;
+    font-size: 16px;
+    justify-content: center;
+    padding: 1rem 1.75rem;
+    text-decoration: none;
+    width: 80%;
+    border: 0;
+    cursor: pointer;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+  }
+  
+  .butt {
+    background-image: linear-gradient(-180deg, #1D95C9 0%, #17759C 100%);
+  }
+  
+  @media (min-width: 768px) {
+    .butt{
+      padding: 1rem 2rem;
+    }
+
+    .ButtonToCreateLog label{
+        font-size: 18px;
+        color: blue;
+    }
 }

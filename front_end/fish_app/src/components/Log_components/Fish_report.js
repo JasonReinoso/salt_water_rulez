@@ -3,14 +3,13 @@ import './Log.css'
 function Fish_report(props) {
   return (
     <div className='Fish_report'>
-        <a>{props.children.fecha}</a>
-        <a>{props.children.TypeofFish}</a> 
-        <a>{props.children.length}</a>
+        <span>Date: {props.children.fecha}</span>
+        <span>Type of Fish: {props.children.TypeofFish}</span>
+        <span>Length: {props.children.length} inches</span>
+        <span>Weight: {props.children.weight} inches</span>
+        <span>Fish Method: {props.children.FishMethod} </span> 
+        <span>Tools: {props.children.tools}</span>
         <img src={`http://localhost:4000/picture/${props.children.picture}`} className='fish_pic'></img>
-        <label>{props.children.weight}</label>
-        <label> {props.children.weight}</label>
-  
-        <label>{props.children.tools}</label>
     </div>
   )
 }

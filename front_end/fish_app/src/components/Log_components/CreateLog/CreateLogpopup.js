@@ -40,7 +40,7 @@ function CreateLogpopup(props) {
   return (
     <div className='Popup'>
         <div className='popup-inner'>
-            CreateLogpopup 
+            <label className='Title'>CreateLogpopup </label>
             <button className ="Close" onClick={()=>props.SetPopMenu(!props.popup)}>X</button>
             
             <InputField label ='Fish Species' typeofinput='text' classname='Fish_Species' setter={Set_Fish_Species}></InputField>
@@ -53,15 +53,16 @@ function CreateLogpopup(props) {
 
             <div className='Fish_Released'>
                 <label>Fish Released?</label>
-                <button className={Fish_Released==='Released'? 'Released':''} onClick={()=>Set_Fish_Released("Released")}>Released</button>   
-                <button className={Fish_Released==='Harvested'? 'Harvested':''} onClick={()=>Set_Fish_Released("Harvested")}>Harvested</button>
-
+                <div className='Fish_Released_Buttons'>
+                  <button className={Fish_Released==='Released'? 'Released':'normal'} onClick={()=>Set_Fish_Released("Released")}>Released</button>   
+                  <button className={Fish_Released==='Harvested'? 'Harvested':'normal'} onClick={()=>Set_Fish_Released("Harvested")}>Harvested</button>
+                </div>
             </div>
             <InputField label='Fishing Method' typeofinput='text' classname='Fish_Method' setter={Set_Fish_Method}></InputField>
           
-            <InputFieldNumerical label='weight' typeofinput='number' classname='weight' setter={Set_Weight}></InputFieldNumerical>
+            <InputFieldNumerical label='Weight' typeofinput='number' classname='weight' setter={Set_Weight}></InputFieldNumerical>
             
-            <InputFieldNumerical label='Length' typeofinput='number' classname='weight' setter={Set_Length}></InputFieldNumerical>
+            <InputFieldNumerical label='Length' typeofinput='number' classname='Length' setter={Set_Length}></InputFieldNumerical>
           
             <InputField label ='Equipment' typeofinput='text' classname='Equipment' setter={Set_Equipment}></InputField>
             
@@ -69,9 +70,9 @@ function CreateLogpopup(props) {
                 <label>Weather</label> 
             </div>
 
-            <InputField label ='Date' typeofinput='Date' classname='Equipment' setter={Set_Date}></InputField>
+            <InputField label ='Date' typeofinput='Date' classname='Date' setter={Set_Date}></InputField>
 
-            <button onClick={onSubmit}> Submit</button>
+            <button className='submit' onClick={onSubmit}> Submit</button>
         </div>
     </div>
   )
