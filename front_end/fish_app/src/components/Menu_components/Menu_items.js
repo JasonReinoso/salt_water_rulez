@@ -27,5 +27,10 @@ export const MenuItem = [
         path: "/"
 
     },
+
+    {
+        title:"Register",
+        path: "/Register"
+    }
     
 ]

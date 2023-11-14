@@ -1,8 +1,8 @@
 import React from 'react'
-import './Regulations.css'
+import './Menu.css'
 
 
-function Regulation_nav_bar(props) {
+function Nav_bar(props) {
 
 
   
@@ -18,4 +18,4 @@ function Regulation_nav_bar(props) {
 
 
 
-export default Regulation_nav_bar
+export default Nav_bar

@@ -40,7 +40,7 @@ function CreateLogpopup(props) {
   return (
     <div className='Popup'>
         <div className='popup-inner'>
-            <label className='Title'>CreateLogpopup </label>
+            <label className='Title'>Glub Glub </label>
             <button className ="Close" onClick={()=>props.SetPopMenu(!props.popup)}>X</button>
             
             <InputField label ='Fish Species' typeofinput='text' classname='Fish_Species' setter={Set_Fish_Species}></InputField>

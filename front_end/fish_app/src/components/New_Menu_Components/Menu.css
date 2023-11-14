@@ -1,59 +1,12 @@
-.regulation{
-   margin-left: auto;
-   margin-right: auto;
-    
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    max-width: 55%;
-    
-}
-
-.page-title{
-    display: flex;
-    font-size:30px;
-    justify-content: center;
-    margin-left: auto;
-    margin-right: auto;
-    color:blue;
-}
-
-.State_selector{
-    display: flex;
-    justify-content: center;
-    align-content: center;
-    margin-bottom: 10px;
-}
-
-.menuforstates{
-    margin-left: 10px;
-}
-
-thead{
-    background-color: aquamarine;
-    
-}
-.tr{
-   
-}
-
-td{
-    border:1px solid black;
-    padding: 5px;
-   
-}
-
-tr:hover{
-    background-color: coral;
-}
-
 .Regulation_nav_bar{
 
-    height: 60px;;
+    height: 60px;
     background-color: #002B57;
     padding:  0 1rem;
     border-bottom: 1px solid #474a4d;
-    
+    position: sticky;
+    top:0;
+
 }
 
 
