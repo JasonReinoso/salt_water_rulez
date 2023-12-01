@@ -7,6 +7,17 @@
     height:100vh;
 }
 
+.offscreen{
+    position:absolute;
+    left: -9999px;
+}
+
+.hide{
+    position: absolute;
+    left: -9999px;
+}
+
+
 
 .Register_Form{
     display: flex;
