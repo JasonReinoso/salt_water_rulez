@@ -3,6 +3,7 @@
 import mysql2 from "mysql2";
 
 import dotenv from 'dotenv';
+
 dotenv.config();
 
  const pool = mysql2.createPool({
@@ -42,4 +43,24 @@ export async function getlogs()
    
     const [Logs] = await pool.query("Select * from Log where username = ?",["username"]);
     return Logs;
+}
+
+
+
+export async function doesithaveduplicate(Username)
+{
+    const result = await pool.query("Select Username from user where Username = ? and Username IS NOT NULL",[Username]);
+    
+
+   // return result[0][0].Username === Username;
+    if (result[0][0] === undefined)
+    return false;
+
+    return result[0][0].Username === Username;
+   
+}
+
+export  function StoreUser(Username,Password,Email)
+{
+    pool.query('INSERT INTO user(Username,passwords,Email,Created,Updated) VALUES(?,?,?,?,?)',[Username,Password,Email,Date.now(),Date.now()])
 }

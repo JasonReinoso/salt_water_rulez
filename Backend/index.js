@@ -1,13 +1,13 @@
 import express,  {response} from "express";
 import bodyParser from "body-parser";
 import dotenv from 'dotenv';
-import {getregulation,getregulationbystate,getStates, sendlog } from "./server.js";
+import {getregulation,getregulationbystate,getStates, sendlog,  StoreUser, doesithaveduplicate } from "./server.js";
 import {getlogs} from './server.js';
 import cors from 'cors';
 import multer from "multer";
 import {dirname} from 'path';
 import { fileURLToPath } from "url";
-
+import bycript from "bcrypt"
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 dotenv.config();
@@ -67,6 +67,36 @@ app.post("/logs",  upload.single('file'), (req,res)=>{
     res.end();
 
 });
+
+app.post("/register", async (req,res)=>{
+    const  {Username,Password,Email} = req.body;
+    if(!Username || !Password)  
+        {
+            console.log("1");
+            return res.sendStatus(400).json({'message':'Username and password are required'}); 
+           
+        }
+    //check for duplicate usernames 
+    const duplicate = await doesithaveduplicate(Username);
+    if(duplicate)
+    {
+        console.log("2");
+        return res.sendStatus(401);       
+    }
+    try{
+        //encrypt the password
+        const hashPwd = await bycript.hash(Password,10);
+        StoreUser(Username,hashPwd,Email);
+        console.log("3");
+       return res.status(201).json({'Success':`New user ${Username} created!`});
+    }
+    catch(err){
+        console.log(err.message);
+        return  res.status(500).json({'message':err.message})
+        
+    }
+
+})
 
 app.get("/Getlogs", async (req,res)=>{
   const Logs = await getlogs();
