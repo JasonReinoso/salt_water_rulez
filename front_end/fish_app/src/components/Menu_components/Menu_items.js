@@ -31,6 +31,10 @@ export const MenuItem = [
     {
         title:"Register",
         path: "/Register"
+    },
+    {
+        title:"LogIn",
+        path:"/Login"
     }
     
 ]

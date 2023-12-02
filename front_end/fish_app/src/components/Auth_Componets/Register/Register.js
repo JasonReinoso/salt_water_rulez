@@ -14,7 +14,7 @@ function Register() {
   const [success,setSuccues] = useState('');
   const [errmsg, setErrMsg] = useState('');
 
-  const [Name,SetName] = useState("");
+  const [Username,SetName] = useState("");
   const [validName, setValidName] = useState(false);
   const [userFocus,setUserFocus] = useState(false);
 
@@ -33,47 +33,57 @@ function Register() {
  // const errRef = useRef();
 
   useEffect(()=>{
-   //  userref.current.focus();
+     userref.current.focus();
   },[])
 
   useEffect(()=>{
-    const result = USER_REGEX.test(Name);
+    const result = USER_REGEX.test(Username);
     console.log(result);
-    console.log(Name);
+    console.log(Username);
     setValidName(result);
-  },[Name])
+  },[Username])
 
   useEffect(()=>{
     const result = PWD_REGEX.test(Password);
     console.log(result);
     console.log(Password);
     setValidPwd(result);
-    const match = Password == ConfirmPassword;
+    const match = Password === ConfirmPassword;
     setValidConfirmPwd(match);
 
   },[Password,ConfirmPassword])
 
   useEffect(()=>{
     setErrMsg(" ");
-  },[Name,Password,ConfirmPassword])
+  },[Username,Password,ConfirmPassword])
 
 
   const handleSubmit = async (e) =>{
+    console.log("Test");
     e.preventDefault();
 
-    if(!USER_REGEX.test(Name) || !PWD_REGEX.test(Password))
+    if(!USER_REGEX.test(Username) || !PWD_REGEX.test(Password))
     {
       setErrMsg("Invalid");
+      console.log("it died at regex testing");
       return;
     }
-
+    console.log("survived regex");
     try{
-      await axios.post("localhost:4000/register",
-      JSON.stringify({Name,Email,Password}),
+      console.log("beginng of axios");
+
+      await axios.post("http://localhost:4000/register",
+      JSON.stringify({Username,Email,Password}),
       {
-        headers:{'Content-Type':'application/json'},
-        withCredentials:true
-      });
+        headers:{
+          
+          'Accept': 'application/json',
+          'Content-Type':'application/json'
+        },
+        withCredentials:true,
+        
+        
+      })
       setSuccues(true);
     }
     catch(err){
@@ -111,6 +121,7 @@ function Register() {
 
               <div className='Register_Form'>
                 <form onSubmit={handleSubmit}>
+                  
                   <label className='Register_title'>Register Form</label>
 
 
@@ -119,7 +130,7 @@ function Register() {
                     <span className={validName? "valid":"hide"}>
                       check
                     </span>
-                    <span className={validName || !Name ? "hide" : "invalid"}>
+                    <span className={validName || !Username ? "hide" : "invalid"}>
                       bad
                     </span>
                   </label>
@@ -136,7 +147,7 @@ function Register() {
                     onFocus={() => setUserFocus(true)}
                     onBlur={()=>setUserFocus(false)}
                   />
-                  <p id="uidnote" className={userFocus && Name && !validName ? "insturctions" : "offscreen"}>
+                  <p id="uidnote" className={userFocus && Username && !validName ? "insturctions" : "offscreen"}>
                     4 to 24 charcters. <br/>
                     Must begin with a letter. <br />
                     Letters, NUMBERS, underscores, hyphens allowed.
@@ -205,8 +216,12 @@ function Register() {
                     <span aria-label='dollar sign'>$</span> <span aria-label="percent">%</span>
                   </p>
 
-                  <button disabled={!validName || !validPwd || !validConfirmPwd}>Register</button>
+                  <button type="submit"  disabled={!validName || !validPwd || !validConfirmPwd}>Register</button>
                 </form>
+                <div className={errmsg===' '?'':"error"}>
+                  <label>{errmsg}</label>
+                </div>
+                
               </div>
 
             </div>

@@ -1,7 +1,7 @@
 import express,  {response} from "express";
 import bodyParser from "body-parser";
 import dotenv from 'dotenv';
-import {getregulation,getregulationbystate,getStates, sendlog,  StoreUser, doesithaveduplicate } from "./server.js";
+import {getregulation,getregulationbystate,getStates, sendlog,  StoreUser, doesithaveduplicate, matchuser, getuser } from "./server.js";
 import {getlogs} from './server.js';
 import cors from 'cors';
 import multer from "multer";
@@ -15,8 +15,20 @@ dotenv.config();
 const app = express();
 app.use(bodyParser.urlencoded({extended:true}));
 app.use(bodyParser.json());
+app.options('*', cors({origin:true,credentials:true}));
 app.use(cors());
+app.use(function(req, res, next) {
+    res.header("Access-Control-Allow-Origin", 'http://192.168.1.57:3000/'); // update to match the domain you will make the request from
+    res.header("Access-Control-Allow-Credentials",true);
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    res.header('Access-Control-Allow-Methods: GET, POST, OPTIONS');
+    next();
+  });
+
 app.use(express.static('Images'));
+
+    
+
 
 var DATENOWfilename;
 
@@ -68,8 +80,34 @@ app.post("/logs",  upload.single('file'), (req,res)=>{
 
 });
 
+app.post("/test",async (req,res)=>{
+    console.log("test post");
+     res.status(200);
+     res.end();
+})
+
+app.post("/Login", async (req,res)=>{
+    const {Username,Password,Email} =req.body;
+   if(!Username || !Password) return res.status(400).json({'message':"Username and Password are required"});
+    const foundUser= await matchuser(Username);
+    if(!foundUser) return res.sendStatus(401);
+   // evaluate password;
+   const Userinfo = await getuser(Username);
+   
+   const match = await bycript.compare(Password, Userinfo.passwords);
+   if(match)
+   {
+    //create JWTs
+    res.json({'Success':`User ${Username} is Logged in`})
+   }
+   else
+    return res.sendStatus(401);
+  
+})
+
 app.post("/register", async (req,res)=>{
     const  {Username,Password,Email} = req.body;
+    console.log(Username +  Password + Email)
     if(!Username || !Password)  
         {
             console.log("1");
@@ -81,7 +119,7 @@ app.post("/register", async (req,res)=>{
     if(duplicate)
     {
         console.log("2");
-        return res.sendStatus(401);       
+        return res.sendStatus(409);       
     }
     try{
         //encrypt the password

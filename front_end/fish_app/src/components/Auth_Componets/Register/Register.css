@@ -31,11 +31,11 @@
    
 }
 
-.Register_Form >  *:not(.Register_title){
+.Register_Form >  *:not(.Register_title, .error){
     display: flex;
     flex-direction: column;
     gap:5px;
-    margin-left: 10px;
+    
 }
 
 .Register_title{
@@ -52,4 +52,20 @@ input:focus{
 }
 button{
     width:fit-content;
+}
+
+.error{
+    background-color: rgb(243, 178, 178);
+    display: flex;
+    width:50%;
+    color:red;
+    height: 40px;
+    justify-content: center;
+    align-content: center;
+    align-self: center;
+}
+
+.error label{
+    display: flex;
+    justify-content: center;
 }
