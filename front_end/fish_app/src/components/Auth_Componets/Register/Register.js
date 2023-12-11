@@ -82,7 +82,6 @@ function Register() {
         },
         withCredentials:true,
         
-        
       })
       setSuccues(true);
     }

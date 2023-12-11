@@ -8,11 +8,16 @@ import multer from "multer";
 import {dirname} from 'path';
 import { fileURLToPath } from "url";
 import bycript from "bcrypt"
+import jwt from 'jsonwebtoken';
+import {promises as fsPromises} from 'fs';
+import path from "path";
+import verifyJWT from './verifyJWT.js'
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 dotenv.config();
 
 const app = express();
+app.use(verifyJWT);
 app.use(bodyParser.urlencoded({extended:true}));
 app.use(bodyParser.json());
 app.options('*', cors({origin:true,credentials:true}));
@@ -26,6 +31,7 @@ app.use(function(req, res, next) {
   });
 
 app.use(express.static('Images'));
+
 
     
 
@@ -89,19 +95,32 @@ app.post("/test",async (req,res)=>{
 app.post("/Login", async (req,res)=>{
     const {Username,Password,Email} =req.body;
    if(!Username || !Password) return res.status(400).json({'message':"Username and Password are required"});
-    const foundUser= await matchuser(Username);
+    
+   const foundUser= await matchuser(Username);
     if(!foundUser) return res.sendStatus(401);
    // evaluate password;
    const Userinfo = await getuser(Username);
-   
    const match = await bycript.compare(Password, Userinfo.passwords);
-   if(match)
-   {
-    //create JWTs
-    res.json({'Success':`User ${Username} is Logged in`})
-   }
-   else
+
+   if(!match)
     return res.sendStatus(401);
+
+  
+    //create JWTs
+    const accessToken = jwt.sign(
+        {"username":Userinfo.Username},
+        process.env.ACCESS_TOKEN_SECRET,
+        {expiresIn:'30s'}
+    );
+    const refreshToken = jwt.sign(
+        {"username":Userinfo.Username},
+        process.env.REFRESH_TOKEN_SECRET,
+        {expiresIn:'1d'}
+    );
+    res.cookie('jwt',refreshToken,{httpOnly:true,maxAge:24*60*60*1000});
+    res.json({accessToken})
+    res.json({'Success':`User ${Username} is Logged in`})
+
   
 })
 
