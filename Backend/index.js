@@ -11,15 +11,17 @@ import bycript from "bcrypt"
 import jwt from 'jsonwebtoken';
 import {promises as fsPromises} from 'fs';
 import path from "path";
+import cookieParser from "cookie-parser";
 import verifyJWT from './verifyJWT.js'
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 dotenv.config();
 
 const app = express();
-app.use(verifyJWT);
+
 app.use(bodyParser.urlencoded({extended:true}));
 app.use(bodyParser.json());
+app.use(cookieParser());
 app.options('*', cors({origin:true,credentials:true}));
 app.use(cors());
 app.use(function(req, res, next) {
@@ -56,7 +58,7 @@ app.get("/regulations/:state", async (req,res)=>{
     res.send(regulations);    
 })
 4
-app.get("/states", async (req,res)=>{
+app.get("/states", verifyJWT, async (req,res)=>{
     const ListOfStates = await getStates();
     res.send(ListOfStates);
 })
@@ -110,7 +112,7 @@ app.post("/Login", async (req,res)=>{
     const accessToken = jwt.sign(
         {"username":Userinfo.Username},
         process.env.ACCESS_TOKEN_SECRET,
-        {expiresIn:'30s'}
+        {expiresIn:'50s'}
     );
     const refreshToken = jwt.sign(
         {"username":Userinfo.Username},
@@ -119,9 +121,7 @@ app.post("/Login", async (req,res)=>{
     );
     res.cookie('jwt',refreshToken,{httpOnly:true,maxAge:24*60*60*1000});
     res.json({accessToken})
-    res.json({'Success':`User ${Username} is Logged in`})
 
-  
 })
 
 app.post("/register", async (req,res)=>{
