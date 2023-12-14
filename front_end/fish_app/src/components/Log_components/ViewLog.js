@@ -9,7 +9,7 @@ function ViewLog({fishlogs, Setfishlogs}) {
 
   async function getlogs()
   {
-    const response = await axios.get("http://localhost:4000/Getlogs");
+    const response = await axios.get("http://localhost:4000/logs/Getlogs");
     Setfishlogs(response.data) 
   }
   

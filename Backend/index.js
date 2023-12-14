@@ -12,8 +12,12 @@ import jwt from 'jsonwebtoken';
 import {promises as fsPromises} from 'fs';
 import path from "path";
 import cookieParser from "cookie-parser";
-import verifyJWT from './verifyJWT.js';
-
+import verifyJWT from './middleware/verifyJWT.js';
+import regulationsRouter from './routes/regulations.js';
+import registerRouter from './routes/register.js';
+import logRouter from './routes/logs.js';
+import authRouter from './routes/auth.js'
+import refreshRouter from './routes/refresh.js'
 const __dirname = dirname(fileURLToPath(import.meta.url));
 dotenv.config();
 
@@ -24,10 +28,6 @@ app.use(bodyParser.json());
 app.use(cookieParser());
 app.options('*', cors({origin:true,credentials:true}));
 app.use(cors());
-
-
-
-
 
 app.use(function(req, res, next) {
     res.header("Access-Control-Allow-Origin", 'http://192.168.1.57:3000/'); // update to match the domain you will make the request from
@@ -40,168 +40,19 @@ app.use(function(req, res, next) {
 app.use(express.static('Images'));
 
 
-    
-
-
-var DATENOWfilename;
 
 
 app.get('/', (req,res)=>{
     res.json({mssg: 'weclome'})
 })
 
-app.get("/regulations", async (req,res)=>{
-   
-    const regulations = await getregulation();
-    res.send(regulations)
-    
-})
 
-app.get("/regulations/:state", async (req,res)=>{
-    const state = req.params.state;
-    const regulations = await getregulationbystate(state);
-    res.send(regulations);    
-})
-
-
-
-const storage = multer.diskStorage({
-    destination: function(req,file,cb){
-        return cb(null,"./Images")
-    },
-    filename: function(req,file,cb){
-        DATENOWfilename = `${Date.now()}_${file.originalname}`;
-        return cb(null,DATENOWfilename);
-    }
-})
-
-const upload = multer({storage});
-
-app.post("/logs",  upload.single('file'), (req,res)=>{
-    console.log(req.file);
-    console.log(req.body)
-    const METADATA = req.file;
-    const imagefilepath =  DATENOWfilename;
-    //console.log(req.file);
-    sendlog(req.body, imagefilepath);
-    res.sendStatus(201);
-    
-    res.end();
-
-});
-
-app.post("/test",async (req,res)=>{
-    console.log("test post");
-     res.status(200);
-     res.end();
-})
-
-app.post("/Login", async (req,res)=>{
-    const {Username,Password,Email} =req.body;
-   if(!Username || !Password) return res.status(400).json({'message':"Username and Password are required"});
-    
-   const foundUser= await matchuser(Username);
-    if(!foundUser) return res.sendStatus(401);
-   // evaluate password;
-   const Userinfo = await getuser(Username);
-   const match = await bycript.compare(Password, Userinfo.passwords);
-
-   if(!match)
-    return res.sendStatus(401);
-
-  
-    //create JWTs
-    const accessToken = jwt.sign(
-        {"username":Userinfo.Username},
-        process.env.ACCESS_TOKEN_SECRET,
-        {expiresIn:'50s'}
-    );
-    const refreshToken = jwt.sign(
-        {"username":Userinfo.Username},
-        process.env.REFRESH_TOKEN_SECRET,
-        {expiresIn:'1d'}
-    );
-    const expiresAt = new Date(Date.now()+7*24*60*60*1000);
-    addRefreshTokenToDb(Userinfo.Username,refreshToken,expiresAt);
-    res.cookie('jwt',refreshToken,{httpOnly:true,maxAge:24*60*60*1000});
-    res.json({accessToken})
-
-})
-
-app.post("/register", async (req,res)=>{
-    const  {Username,Password,Email} = req.body;
-    console.log(Username +  Password + Email)
-    if(!Username || !Password)  
-        {
-            console.log("1");
-            return res.sendStatus(400).json({'message':'Username and password are required'}); 
-           
-        }
-    //check for duplicate usernames 
-    const duplicate = await doesithaveduplicate(Username);
-    if(duplicate)
-    {
-        console.log("2");
-        return res.sendStatus(409);       
-    }
-    try{
-        //encrypt the password
-        const hashPwd = await bycript.hash(Password,10);
-        StoreUser(Username,hashPwd,Email);
-        console.log("3");
-       return res.status(201).json({'Success':`New user ${Username} created!`});
-    }
-    catch(err){
-        console.log(err.message);
-        return  res.status(500).json({'message':err.message})
-        
-    }
-
-})
-
-app.get("/Getlogs", async (req,res)=>{
-  const Logs = await getlogs();
-  res.send(Logs);
-})
-
-
-app.get("/picture/:imagename", async (req,res)=>{ 
-    const picturename = req.params.imagename;
-    const picturepath = __dirname + "/Images/" + picturename;
-    console.log(picturepath);
-    res.sendFile(picturepath);
-})
-
-//TEST
-app.get('/refresh', async(req,res)=>{
-    const cookies = req.cookies;
-    if(!cookies?.jwt) return res.sendStatus(401);
-    console.log(cookies.jwt);
-    const refreshToken = cookies.jwt;
-    const foundUser = getRefreshToken(refreshToken);
-    if(!foundUser) return res.sendStatus(403);
-    jwt.verify(
-        refreshToken,
-        process.env.REFRESH_TOKEN_SECRET,
-        (err,decoded)=>{
-            if(err )//CHANGE THIS LATER !!
-            {
-                return res.sendStatus(403);
-            } 
-            const accessToken = jwt.sign(
-                {"username":decoded.username},
-                process.env.ACCESS_TOKEN_SECRET,
-                {expiresIn:'30s'}
-            );
-            res.json({accessToken});
-        }
-    )
-})
-
-app.get("/states", verifyJWT, async (req,res)=>{
-    const ListOfStates = await getStates();
-    res.send(ListOfStates);
-})
+////////////////////testing new route
+app.use("/regulations", regulationsRouter);
+app.use("/register",registerRouter);
+app.use("/logs",logRouter);
+app.use("/Login",authRouter);
+app.use("/refresh",refreshRouter);
 
 
 
