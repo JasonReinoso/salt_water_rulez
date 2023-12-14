@@ -7,6 +7,8 @@ state_name varchar(40),
 primary key(state_id)
 );
 
+drop table Log;
+
 create table Log(
 Id int auto_increment,
 picture varchar(255),
@@ -35,3 +37,24 @@ create table fish_regulations(
   state_id varchar(2),
   Foreign key(state_id) references States(state_id)
   );
+  
+  
+  create table user (
+  Username varchar(255),
+  passwords varchar(255),
+  Email varchar(255),
+  Created datetime,
+  Updated datetime,
+  primary key(Username)
+
+  );
+  
+  create table refresh_tokens (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  Username VARCHAR(255),
+  token VARCHAR(255),
+  expires_at DATETIME,
+  FOREIGN KEY (Username) references user(Username) on delete CASCADE
+  );
+  
+  DROP table refresh_tokens;

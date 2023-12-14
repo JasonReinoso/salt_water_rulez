@@ -1,7 +1,7 @@
 import express,  {response} from "express";
 import bodyParser from "body-parser";
 import dotenv from 'dotenv';
-import {getregulation,getregulationbystate,getStates, sendlog,  StoreUser, doesithaveduplicate, matchuser, getuser } from "./server.js";
+import {getregulation,getregulationbystate,getStates, sendlog,  StoreUser, doesithaveduplicate, matchuser, getuser, addRefreshTokenToDb, getRefreshToken } from "./server.js";
 import {getlogs} from './server.js';
 import cors from 'cors';
 import multer from "multer";
@@ -12,7 +12,7 @@ import jwt from 'jsonwebtoken';
 import {promises as fsPromises} from 'fs';
 import path from "path";
 import cookieParser from "cookie-parser";
-import verifyJWT from './verifyJWT.js'
+import verifyJWT from './verifyJWT.js';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 dotenv.config();
@@ -24,6 +24,11 @@ app.use(bodyParser.json());
 app.use(cookieParser());
 app.options('*', cors({origin:true,credentials:true}));
 app.use(cors());
+
+
+
+
+
 app.use(function(req, res, next) {
     res.header("Access-Control-Allow-Origin", 'http://192.168.1.57:3000/'); // update to match the domain you will make the request from
     res.header("Access-Control-Allow-Credentials",true);
@@ -57,11 +62,8 @@ app.get("/regulations/:state", async (req,res)=>{
     const regulations = await getregulationbystate(state);
     res.send(regulations);    
 })
-4
-app.get("/states", verifyJWT, async (req,res)=>{
-    const ListOfStates = await getStates();
-    res.send(ListOfStates);
-})
+
+
 
 const storage = multer.diskStorage({
     destination: function(req,file,cb){
@@ -119,6 +121,8 @@ app.post("/Login", async (req,res)=>{
         process.env.REFRESH_TOKEN_SECRET,
         {expiresIn:'1d'}
     );
+    const expiresAt = new Date(Date.now()+7*24*60*60*1000);
+    addRefreshTokenToDb(Userinfo.Username,refreshToken,expiresAt);
     res.cookie('jwt',refreshToken,{httpOnly:true,maxAge:24*60*60*1000});
     res.json({accessToken})
 
@@ -166,6 +170,37 @@ app.get("/picture/:imagename", async (req,res)=>{
     const picturepath = __dirname + "/Images/" + picturename;
     console.log(picturepath);
     res.sendFile(picturepath);
+})
+
+//TEST
+app.get('/refresh', async(req,res)=>{
+    const cookies = req.cookies;
+    if(!cookies?.jwt) return res.sendStatus(401);
+    console.log(cookies.jwt);
+    const refreshToken = cookies.jwt;
+    const foundUser = getRefreshToken(refreshToken);
+    if(!foundUser) return res.sendStatus(403);
+    jwt.verify(
+        refreshToken,
+        process.env.REFRESH_TOKEN_SECRET,
+        (err,decoded)=>{
+            if(err )//CHANGE THIS LATER !!
+            {
+                return res.sendStatus(403);
+            } 
+            const accessToken = jwt.sign(
+                {"username":decoded.username},
+                process.env.ACCESS_TOKEN_SECRET,
+                {expiresIn:'30s'}
+            );
+            res.json({accessToken});
+        }
+    )
+})
+
+app.get("/states", verifyJWT, async (req,res)=>{
+    const ListOfStates = await getStates();
+    res.send(ListOfStates);
 })
 
 
