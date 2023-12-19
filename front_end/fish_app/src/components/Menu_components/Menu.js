@@ -4,6 +4,7 @@ import {MenuItem} from './Menu_items.js'
 
 import {Link} from 'react-router-dom';
 
+
 export function menu()
 {
    return(
@@ -18,12 +19,10 @@ export function menu()
                         <span>{item.title}</span>
                         </Link>  
                     </li>
-
-
                 )
-
-
             })} 
+           
+            
         </ul>
     </div>
     )

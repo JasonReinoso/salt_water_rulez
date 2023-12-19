@@ -1,17 +1,23 @@
 import React from 'react'
-import { Link } from 'react-router-dom';
 import { useRef,useState,useEffect} from 'react'
 import axios from 'axios';
 import useAuth from '../../../hooks/useAuth';
+import {Link,useNavigate,useLocation} from 'react-router-dom';
 function Login() {
+    const {setAuth} = useAuth();
+
+    const navigate = useNavigate();
+    const location = useLocation();
+    const from = location.state?.from?.pathname || "/";
+
     const userRef = useRef();
     const errRef = useRef();
 
-    const {setAuth} = useAuth();
+
     const [Username,setUser] = useState('');
     const [Password,SetPassword] = useState('');
     const [errMsg, setErrMsg] = useState('');
-    const [success,setSuccues] = useState('');
+   
 
     useEffect(()=>{
       userRef.current.focus();
@@ -38,7 +44,7 @@ function Login() {
         setAuth({Username,Password,accessToken}); // add roles later  XD
         setUser('');
         SetPassword('');
-        setSuccues('');
+        navigate(from , {replace:true});
       }
       catch(err)
       {
@@ -55,12 +61,7 @@ function Login() {
     }
 
   return (
-    <>
-      {success?
-        (
-          <h1> needs to be edited</h1>
-        ):
-        (
+    
           <section>
             <p ref={errRef} className={errMsg ? "errmesg": "offscreen"} aria-live ="assertive"></p>
             <h1> Sign In</h1>
@@ -94,9 +95,7 @@ function Login() {
                 </Link>
             </p>
           </section>
-        )
-      }
-    </>
+     
    
   )
 }

@@ -12,17 +12,27 @@ dotenv.config();
     database: process.env.MYSQL_DATABASE
     }).promise()
 
+    async function findUserbyToken(refreshToken)
+    {
+        var query = "select Username from refresh_tokens where token = ?";
+        const result = await pool.query(query,[refreshToken]);
+        return result[0][0].Username;
+    }
 
-async function deleteUser(refreshToken)
+
+async function deleterefreshToken(refreshToken)
 {
-    var query = 'Delete from refresh_tokens where token = ?';
-    await pool.query(query,[refreshToken]);
+    var query = 'Delete from refresh_tokens where Username = ?'; 
+    const Username =  await findUserbyToken(refreshToken);
+    await pool.query(query,[Username]);
+   
     return;
 }
 
 
 const handleLogout = async (req,res) =>{
     //on client, delete the accessToken
+    console.log(req.cookies);
     const cookies = req.cookies;
     if(!cookies?.jwt) return res.sendStatus(204);
     const refreshToken = cookies.jwt;
@@ -35,7 +45,7 @@ const handleLogout = async (req,res) =>{
     }
     
     //delete refreshToken
-   await deleteUser(refreshToken);
+   await deleterefreshToken(refreshToken);
    res.clearCookie('jwt',{httpOnly:true,sameSite:'None', secure:true});
    res.sendStatus(204);
 }

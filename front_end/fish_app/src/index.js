@@ -19,20 +19,21 @@ const router = createBrowserRouter([
     path: "/",
     element: <App/>,
   },
-  {
-    path: "/Regulations",
-    element: <Regulations/>,
-  },
+
   ,{
     element: <RequireAuth />,
     children:[
       {
         path: "/Log",
         element:<Log/>
+      },
+      {
+        path: "/Regulations",
+        element: <Regulations/>,
       }
-    ]
+      
 
-    
+    ]   
   },
   // {
   //   path: "/Log",

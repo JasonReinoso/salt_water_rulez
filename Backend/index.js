@@ -52,6 +52,7 @@ app.use("/logout",logoutRouter);
 app.use(verifyJWT);
 app.use("/regulations", regulationsRouter);
 app.use("/logs",logRouter);
+app.use("/logout", logoutRouter);
 
 
 
