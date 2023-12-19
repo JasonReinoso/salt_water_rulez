@@ -7,6 +7,7 @@ import Regulations from './components/Regulation_components/Regulations';
 import Log from './components/Log_components/Log';
 import Register from './components/Auth_Componets/Register/Register.js'
 import Login from './components/Auth_Componets/Login/Login.js';
+import RequireAuth from './components/Auth_Componets/Login/RequireAuth.js';
 import {
   createBrowserRouter,
   RouterProvider,
@@ -22,10 +23,21 @@ const router = createBrowserRouter([
     path: "/Regulations",
     element: <Regulations/>,
   },
-  {
-    path: "/Log",
-    element: <Log/>,
+  ,{
+    element: <RequireAuth />,
+    children:[
+      {
+        path: "/Log",
+        element:<Log/>
+      }
+    ]
+
+    
   },
+  // {
+  //   path: "/Log",
+  //   element: <Log/>,
+  // },
   {
     path:"/Register",
     element: <Register/>

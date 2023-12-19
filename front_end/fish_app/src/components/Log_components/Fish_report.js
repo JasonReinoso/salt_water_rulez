@@ -9,7 +9,7 @@ function Fish_report(props) {
         <span>Weight: {props.children.weight} inches</span>
         <span>Fish Method: {props.children.FishMethod} </span> 
         <span>Tools: {props.children.tools}</span>
-        <img src={`http://localhost:4000/picture/${props.children.picture}`} className='fish_pic'></img>
+        <img src={`http://localhost:4000/logs/picture/${props.children.picture}`} className='fish_pic'></img>
     </div>
   )
 }

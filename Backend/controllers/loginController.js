@@ -5,6 +5,7 @@ import { addRefreshTokenToDb, getuser, matchuser } from '../server.js';
 
 const handleLogin = async (req,res)=>{
     const {Username,Password,Email} =req.body;
+    console.log(req.body);
    if(!Username || !Password) return res.status(400).json({'message':"Username and Password are required"});
     
    const foundUser= await matchuser(Username);
@@ -30,7 +31,7 @@ const handleLogin = async (req,res)=>{
     );
     const expiresAt = new Date(Date.now()+7*24*60*60*1000);
     addRefreshTokenToDb(Userinfo.Username,refreshToken,expiresAt);
-    res.cookie('jwt',refreshToken,{httpOnly:true,maxAge:24*60*60*1000});
+    res.cookie('jwt',refreshToken,{httpOnly:true,sameSite:'None', secure:true,maxAge:24*60*60*1000});
     res.json({accessToken})
 }
 

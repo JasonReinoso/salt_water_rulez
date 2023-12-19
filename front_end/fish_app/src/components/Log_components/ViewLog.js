@@ -1,15 +1,15 @@
 import React, {useState, useEffect,useContext} from 'react'
 import axios from 'axios';
 import Fish_report from './Fish_report';
-
+import useAxiosPrivate from '../../hooks/useAxiosPrivate';
 
 import './Log.css'
 function ViewLog({fishlogs, Setfishlogs}) {
 
-
+  const axiosPrivate = useAxiosPrivate();
   async function getlogs()
   {
-    const response = await axios.get("http://localhost:4000/logs/Getlogs");
+    const response = await axiosPrivate.get("/logs/Getlogs");
     Setfishlogs(response.data) 
   }
   

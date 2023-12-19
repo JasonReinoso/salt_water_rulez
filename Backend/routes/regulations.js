@@ -11,6 +11,11 @@ router.get("/",async (req,res)=>{
     res.send(regulations);
 })
 
+router.get("/states", async (req,res)=>{
+    const ListofStates = await getStates();
+    console.log("fffffffffffffffffffffffffffffffff");
+    res.send(ListofStates);
+})
 
 router.get("/:state", async (req,res)=>{
     const state = req.params.state;
@@ -18,9 +23,6 @@ router.get("/:state", async (req,res)=>{
     res.send(regulations);
 })
 
-router.get("/states", verifyJWT, async (req,res)=>{
-    const ListofStates = await getStates();
-    res.send(ListofStates);
-})
+
 
 export default router
