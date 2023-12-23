@@ -1,0 +1,49 @@
+
+.container{
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    margin-top: 50px;
+    height:100vh;
+   
+}
+
+.SignInForm{
+    display:flex;
+    flex-direction: column;
+    background-color: white;
+    border-color: #F7F7F7;
+    border-style:solid;
+    width:800px;
+    height:400px;
+}
+
+.SignInForm > *:not(.signInTitle)
+{
+    display: flex;
+    flex-direction: column;
+    gap:10px;
+    margin-top: 10px;
+}
+
+.registerLink{
+    display: flex;
+}
+
+.persistCheck{
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+}
+
+.signInTitle{
+    background-color: #F7F7F7;;
+    padding:5px;
+    border-color:#F7F7F7 ;
+}
+
+.persistCheck > input{
+    
+    height: 25px;
+    width:25px;
+}

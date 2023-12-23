@@ -1,8 +1,11 @@
 import React from 'react'
 import { useRef,useState,useEffect} from 'react'
+import Nav_bar from '../../New_Menu_Components/Nav_bar';
+import Navitem from '../../New_Menu_Components/Navitem';
 import axios from 'axios';
 import useAuth from '../../../hooks/useAuth';
 import Testjwttoken from '../../tests/Testjwttoken';
+import './Login.css'
 import {Link,useNavigate,useLocation} from 'react-router-dom';
 function Login() {
     const {setAuth,persist,setPersist} = useAuth();
@@ -72,49 +75,60 @@ function Login() {
 
   return (
     
-          <section>
-            <p ref={errRef} className={errMsg ? "errmesg": "offscreen"} aria-live ="assertive"></p>
-            <h1> Sign In</h1>
-            <form onSubmit={handleSubmit}>
-              <label htmlFor='username'>Username:</label>
-              <input 
-                  type="text" 
-                  id="username" 
-                  ref={userRef} 
-                  autoComplete='off'
-                  onChange={(e)=>setUser(e.target.value)}
-                  value={Username}
-                  required>
-                  </input>
+          <section >
+              <Nav_bar>
+                <a className='title'>Salt Water Rulez</a>
+                <Navitem>
 
-                  <label htmlFor='password'>Password:</label>
-              <input 
-                  type="password" 
-                  id="password" 
-                  onChange={(e)=>SetPassword(e.target.value)}
-                  value={Password}
-                  required>
-                  </input>
-              <button>Sign In</button>
-              <div className='persistCheck'>
-                <input 
-                type="checkbox"
-                id="persist"
-                onChange={togglePersist}
-                checked={persist}
-                 />
-                 <label htmlFor="persist">Trust This device</label>
+                </Navitem>
+              </Nav_bar>
+              <p ref={errRef} className={errMsg ? "errmesg": "offscreen"} aria-live ="assertive"></p>
+              <div className='container'>
+                  <div className='SignInForm'>
+                    <label className='signInTitle'>Sign In</label> 
+                    <form onSubmit={handleSubmit}>
+                    <label htmlFor='username'>Username:</label>
+                    <input 
+                        type="text" 
+                        id="username" 
+                        ref={userRef} 
+                        autoComplete='off'
+                        onChange={(e)=>setUser(e.target.value)}
+                        value={Username}
+                        required>
+                    </input>
+
+                        <label htmlFor='password'>Password:</label>
+                    <input 
+                        type="password" 
+                        id="password" 
+                        onChange={(e)=>SetPassword(e.target.value)}
+                        value={Password}
+                        required>
+                        </input>
+                    <button>Sign In</button>
+                    <div className='persistCheck'>
+                      <label htmlFor="persist">Trust This device</label>
+                      <input 
+                      type="checkbox"
+                      id="persist"
+                      onChange={togglePersist}
+                      checked={persist}
+                      />
+                      
+                    </div>
+                  </form>
+                  <p className='registerLink'>
+                    Need an Account?<br/>
+                    <Link 
+                        to="/Register">
+                        Sign up
+                      </Link>
+
+                  </p>
+                  </div>
               </div>
-            </form>
-            <p>
-              Need an Account?<br/>
-              <Link 
-                  to="/Register">
-                  Sign up
-                </Link>
-
-                <Testjwttoken/>
-            </p>
+              
           </section>
      
    

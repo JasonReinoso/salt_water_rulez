@@ -51,26 +51,6 @@ const router = createBrowserRouter([
       
     ]
   },
-
-  // ,{
-  //   element: <RequireAuth />,
-  //   children:[
-  //     {
-  //       path: "/Log",
-  //       element:<Log/>
-  //     },
-  //     {
-  //       path: "/Regulations",
-  //       element: <Regulations/>,
-  //     }
-      
-
-  //   ]   
-  // },
-  // {
-  //   path: "/Log",
-  //   element: <Log/>,
-  // },
   {
     path:"/Register",
     element: <Register/>

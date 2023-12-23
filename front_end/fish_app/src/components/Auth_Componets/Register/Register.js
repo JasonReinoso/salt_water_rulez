@@ -4,7 +4,7 @@ import Navitem from '../../New_Menu_Components/Navitem'
 import Inputfields from './Inputfields';
 import axios from 'axios';
 import './Register.css'
-
+import { Link } from 'react-router-dom';
 
 const USER_REGEX = /^[a-zA-Z][a-zA-Z0-9-_]{3,23}$/;
 const PWD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/;
@@ -135,6 +135,7 @@ function Register() {
                   </label>
                   
                   <input
+                   
                     type='text'
                     id ='username'
                     ref={userref}
@@ -215,7 +216,15 @@ function Register() {
                     <span aria-label='dollar sign'>$</span> <span aria-label="percent">%</span>
                   </p>
 
-                  <button type="submit"  disabled={!validName || !validPwd || !validConfirmPwd}>Register</button>
+                  <button className='submit'type="submit"  disabled={!validName || !validPwd || !validConfirmPwd}>Register</button>
+                  <p className='loginLink'>
+                    Have an account?<br/>
+                    <Link 
+                        to="/Login">
+                        Sign up
+                      </Link>
+
+                  </p>
                 </form>
                 <div className={errmsg===' '?'':"error"}>
                   <label>{errmsg}</label>

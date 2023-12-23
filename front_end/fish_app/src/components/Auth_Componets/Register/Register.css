@@ -69,3 +69,7 @@ button{
     display: flex;
     justify-content: center;
 }
+
+.submit{
+    margin-top: 10px;
+}
