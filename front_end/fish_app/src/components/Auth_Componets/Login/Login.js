@@ -2,9 +2,10 @@ import React from 'react'
 import { useRef,useState,useEffect} from 'react'
 import axios from 'axios';
 import useAuth from '../../../hooks/useAuth';
+import Testjwttoken from '../../tests/Testjwttoken';
 import {Link,useNavigate,useLocation} from 'react-router-dom';
 function Login() {
-    const {setAuth} = useAuth();
+    const {setAuth,persist,setPersist} = useAuth();
 
     const navigate = useNavigate();
     const location = useLocation();
@@ -40,6 +41,7 @@ function Login() {
           withCredentials:true,
         });
         const accessToken =response?.data?.accessToken;
+        console.log(accessToken);
         // const roles = response?.data.roles;
         setAuth({Username,Password,accessToken}); // add roles later  XD
         setUser('');
@@ -59,6 +61,14 @@ function Login() {
       errRef.current.focus();
       }
     }
+
+    const togglePersist = () =>{
+      setPersist(prev => !prev);
+    }
+
+    useEffect(()=>{
+      localStorage.setItem("persist", persist);
+    },[persist])
 
   return (
     
@@ -86,6 +96,15 @@ function Login() {
                   required>
                   </input>
               <button>Sign In</button>
+              <div className='persistCheck'>
+                <input 
+                type="checkbox"
+                id="persist"
+                onChange={togglePersist}
+                checked={persist}
+                 />
+                 <label htmlFor="persist">Trust This device</label>
+              </div>
             </form>
             <p>
               Need an Account?<br/>
@@ -93,6 +112,8 @@ function Login() {
                   to="/Register">
                   Sign up
                 </Link>
+
+                <Testjwttoken/>
             </p>
           </section>
      

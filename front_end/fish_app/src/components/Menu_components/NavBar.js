@@ -6,15 +6,16 @@ import useAuth from '../../hooks/useAuth'
 import { axiosPrivate } from '../../api/axios'
 import useAxiosPrivate from '../../hooks/useAxiosPrivate'
 import { useNavigate } from 'react-router-dom'
+import useLogOut from '../../hooks/useLogout'
 function NavBar() {
 
-    const {setAuth} = useAuth();
-    const axiosPrivate = useAxiosPrivate();
+    // const {setAuth} = useAuth();
+    // const axiosPrivate = useAxiosPrivate();
+    const logout = useLogOut();
     const navigate = useNavigate();
 
-    const logout = async () =>{
-        setAuth({});
-        await axiosPrivate.delete('/logout');
+    const signOut = async () =>{
+        await logout();
         navigate('/Login');
         
     }
@@ -37,7 +38,7 @@ function NavBar() {
                 )
             })} 
             <li className ="Logout"
-              onClick={logout}
+              onClick={signOut}
             >
                 <span
                 >Logout</span>

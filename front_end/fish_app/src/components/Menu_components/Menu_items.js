@@ -35,6 +35,10 @@ export const MenuItem = [
     {
         title:"LogIn",
         path:"/Login"
+    },
+    {
+        title:"test",
+        path:"/Testjwttoken"
     }
     
     
