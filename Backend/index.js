@@ -2,6 +2,7 @@ import express,  {response} from "express";
 import bodyParser from "body-parser";
 import dotenv from 'dotenv';
 import cors from 'cors';
+import path from "path";
 import {dirname} from 'path';
 import { fileURLToPath } from "url";
 import cookieParser from "cookie-parser";
@@ -13,6 +14,7 @@ import logRouter from './routes/logs.js';
 import authRouter from './routes/auth.js'
 import refreshRouter from './routes/refresh.js'
 import logoutRouter from './routes/logout.js'
+
 const __dirname = dirname(fileURLToPath(import.meta.url));
 dotenv.config();
 

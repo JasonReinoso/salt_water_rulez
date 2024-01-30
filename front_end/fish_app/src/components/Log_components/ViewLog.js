@@ -7,6 +7,8 @@ import './Log.css'
 function ViewLog({fishlogs, Setfishlogs}) {
 
   const axiosPrivate = useAxiosPrivate();
+
+
   async function getlogs()
   {
     const response = await axiosPrivate.get("/logs/Getlogs");
@@ -35,7 +37,7 @@ function ViewLog({fishlogs, Setfishlogs}) {
                 </div>
             )
         })}
-       
+     
     </div>
   )
 }

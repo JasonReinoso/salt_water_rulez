@@ -1,5 +1,6 @@
 import express from 'express';
 import multer from 'multer';
+import path from 'path';
 import { getlogs, sendlog } from '../models/logs.js'
 import {dirname} from 'path';
 import { fileURLToPath } from 'url';
@@ -43,7 +44,8 @@ router.get("/Getlogs", async (req,res)=>{
 
 router.get("/picture/:imagename",async (req,res)=>{
     const picturename = req.params.imagename;
-    const picturepath = __dirname + "/Images/" + picturename;
+    
+    const picturepath = path.join(__dirname,"..","/Images",picturename);
     console.log(picturepath);
     res.sendFile(picturepath);
 })
