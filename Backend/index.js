@@ -23,8 +23,9 @@ app.use(bodyParser.json());
 app.use(cookieParser());
 
 app.use(credentials);
-app.options('*', cors({origin:true,credentials:true}));
 app.use(cors());
+app.options('*', cors({origin:true,credentials:true}));
+
 
 app.use(function(req, res, next) {
     res.header("Access-Control-Allow-Origin", 'http://192.168.1.57:3000/'); // update to match the domain you will make the request from

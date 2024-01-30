@@ -1,7 +1,7 @@
 
 import express from "express";
 
-import { getStates, getregulation, getregulationbystate } from "../server.js";
+import { getStates, getregulation, getregulationbystate } from "../models/databaseRegulations.js";
 import verifyJWT from "../middleware/verifyJWT.js";
 
 const router = express.Router();

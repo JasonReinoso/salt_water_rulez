@@ -1,6 +1,6 @@
 import express from 'express';
 import multer from 'multer';
-import { getlogs, sendlog } from '../server.js';
+import { getlogs, sendlog } from '../models/logs.js'
 import {dirname} from 'path';
 import { fileURLToPath } from 'url';
 const router = express.Router();

@@ -1,6 +1,6 @@
 import jwt from 'jsonwebtoken';
 import dotenv from 'dotenv';
-import { getRefreshToken } from '../server.js';
+import { getRefreshToken } from '../models/databaseJWT.js';
 import mysql2 from "mysql2";
 
 dotenv.config();

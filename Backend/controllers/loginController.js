@@ -1,7 +1,7 @@
 import jwt from 'jsonwebtoken';
 import bycript from "bcrypt"
-import { addRefreshTokenToDb, getuser, matchuser } from '../server.js';
-
+import { addRefreshTokenToDb } from '../models/databaseJWT.js';
+import {getuser,matchuser} from '../models/databaseUsers.js';
 
 const handleLogin = async (req,res)=>{
     const {Username,Password,Email} =req.body;

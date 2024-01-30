@@ -1,5 +1,5 @@
 import bycript from "bcrypt"
-import { StoreUser, doesithaveduplicate } from "../server.js";
+import { StoreUser, doesithaveduplicate } from "../models/databaseUsers.js";
 
   const handleNewUser = async (req,res)=>{
     const  {Username,Password,Email} = req.body;

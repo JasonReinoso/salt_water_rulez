@@ -221,7 +221,7 @@ function Register() {
                     Have an account?<br/>
                     <Link 
                         to="/Login">
-                        Sign up
+                        Log in
                       </Link>
 
                   </p>
