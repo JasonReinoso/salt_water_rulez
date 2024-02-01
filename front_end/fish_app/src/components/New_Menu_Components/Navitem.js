@@ -1,7 +1,9 @@
+/* eslint-disable jsx-a11y/anchor-is-valid */
 import React from 'react'
+import './Menu.css'
 import { useState } from 'react'
 
-function Navitem(props) {
+function Navitem({name,setNavItems, navItems,navState,children}) {
 
 
   return (
@@ -10,14 +12,24 @@ function Navitem(props) {
         <a 
         role="button"
         onClick={()=>{
-          props.setOpen(!props.Open)
-          props.setShouldBeClosed(false);
-        }}
-      
-          > 
-          {props.name} 
+          console.log(name);
+          setNavItems((prevState)=>{
+            const newstate ={...prevState};
+            Object.keys(newstate).forEach(key=>{
+              newstate[key] = false;
+            })
+
+            newstate[name] = !navState;
+            return newstate;
+          })
+          // setNavItems(prevState=>({
+          //   ...prevState,
+          //   [name]:!navState
+          // }))
+        }}>  
+          {name} 
           </a>
-        {props.Open  && props.children }
+        {navState  && children }
       </li>
     </div>
   )

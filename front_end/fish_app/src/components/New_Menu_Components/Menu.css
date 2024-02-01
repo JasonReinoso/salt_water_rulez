@@ -1,4 +1,4 @@
-.Regulation_nav_bar{
+.nav_bar{
 
     height: 60px;
     background-color: #002B57;
@@ -6,12 +6,14 @@
     border-bottom: 1px solid #474a4d;
     position: sticky;
     top:0;
+    display:flex;
 
 }
 
 
 /* ul */
 .navbar-nav{
+    
     color: #8A9A5B;
     max-width: 100%;
     height: 100%;
@@ -19,20 +21,27 @@
     justify-content: flex-end;
     list-style: none;
 }
+
+.nav-item{
+    padding:10px;
+    
+}
 .title{
     margin-right: auto;
    display:flex;
    align-items: center;
    font-size: xx-large;
+   color:white;
+   margin-left: 20px;
  }
 
 /* li */
-.nav-item{
+/* .nav-item{
     padding: 1rem;
     display: flex;
     align-items: center;
     justify-content: center;
-}
+} */
 
 .dropdown{
     position: absolute;
@@ -64,3 +73,4 @@
    text-decoration: none; 
    color:#8A9A5B;
 }
+

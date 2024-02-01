@@ -1,4 +1,4 @@
-.regulation{
+/* .regulation{
    margin-left: auto;
    margin-right: auto;
     
@@ -57,7 +57,7 @@ tr:hover{
 }
 
 
-/* ul */
+
 .navbar-nav{
     color: #8A9A5B;
     max-width: 100%;
@@ -73,7 +73,7 @@ tr:hover{
    font-size: xx-large;
  }
 
-/* li */
+
 .nav-item{
     padding: 1rem;
     display: flex;
@@ -110,4 +110,4 @@ tr:hover{
 .Link{
    text-decoration: none; 
    color:#8A9A5B;
-}
+} */
