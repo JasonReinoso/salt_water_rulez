@@ -41,7 +41,7 @@ function Login() {
             'Accept': 'application/json',
             'Content-Type':'application/json'
           },
-          withCredentials:true,
+         // withCredentials:true,
         });
         const accessToken =response?.data?.accessToken;
         console.log(accessToken);

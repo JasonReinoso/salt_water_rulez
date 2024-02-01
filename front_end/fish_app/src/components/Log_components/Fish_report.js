@@ -21,7 +21,7 @@ function Fish_report(props) {
         },  
         responseType: 'blob'
         });
-         const blobData = new Blob([response.data],{type:'image/png'})
+         
         const imageURL = URL.createObjectURL(response.data);
     
         setImageData(imageURL);

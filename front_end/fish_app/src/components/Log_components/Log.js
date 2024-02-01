@@ -11,6 +11,9 @@ function Log() {
 
   const [popup,SetPopMenu] = useState(false);
   const [fishlogs,Setfishlogs] = useState([]);
+
+  const [profileOpen, setProfileOpen] = useState(false);
+  const [MenuOpen, setMenuOpen] = useState(false);
   return (
       <div className='Log'>
         <Nav_bar>
