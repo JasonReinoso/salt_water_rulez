@@ -18,10 +18,16 @@ function Log() {
       <div className='Log'>
         <Nav_bar>
           <a className='title'>Salt Water Rulez</a>
-          <Navitem name ='Profile'>
+          <Navitem name ='Profile'
+            setOpen={setProfileOpen}
+            Open={profileOpen}
+            setShouldBeClosed={setMenuOpen}>
             <DropdownMenuProfile/>
           </Navitem>
-          <Navitem name ='Menu'>
+          <Navitem name ='Menu'
+          setOpen={setMenuOpen}
+          Open={MenuOpen}
+          setShouldBeClosed={setProfileOpen}>
             <DropdownMenu/>
           </Navitem>
         </Nav_bar>

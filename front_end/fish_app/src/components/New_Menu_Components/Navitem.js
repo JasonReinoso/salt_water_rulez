@@ -3,12 +3,21 @@ import { useState } from 'react'
 
 function Navitem(props) {
 
-  const [open,Setopen] = useState(false);
+
   return (
     <div className='nav-item'>
       <li>
-        <a onClick={()=>Setopen(!open)}> {props.name} </a>
-        {open && props.children }
+        <a 
+        role="button"
+        onClick={()=>{
+          props.setOpen(!props.Open)
+          props.setShouldBeClosed(false);
+        }}
+      
+          > 
+          {props.name} 
+          </a>
+        {props.Open  && props.children }
       </li>
     </div>
   )
