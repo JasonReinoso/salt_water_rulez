@@ -1,7 +1,5 @@
 import React from 'react'
 import { useRef,useState,useEffect} from 'react'
-import Nav_bar from '../../New_Menu_Components/Nav_bar';
-import Navitem from '../../New_Menu_Components/Navitem';
 import axios from 'axios';
 import useAuth from '../../../hooks/useAuth';
 import Testjwttoken from '../../tests/Testjwttoken';
@@ -76,12 +74,9 @@ function Login() {
   return (
     
           <section >
-              <Nav_bar>
-                <a className='title'>Salt Water Rulez</a>
-                <Navitem>
-
-                </Navitem>
-              </Nav_bar>
+             <div className='titlo'>
+              <label className='name'>Salt Water Rulez</label>
+             </div>
               <p ref={errRef} className={errMsg ? "errmesg": "offscreen"} aria-live ="assertive"></p>
               <div className='container'>
                   <div className='SignInForm'>

@@ -1,4 +1,21 @@
+.titlo{
+    height:60px;
+    background-color: #002B57;
+    padding: 0 1rem;
+    border-bottom: 1px solid #474a4d;
+    position: sticky;
+    top:0;
+    display:flex;
+}
 
+.name{
+    margin-right: auto;
+    display:flex;
+    align-items: center;
+    font-size: xx-large;
+    color:white;
+    margin-left: 20px;
+}
 .container{
     display: flex;
     justify-content: center;

@@ -1,6 +1,6 @@
 import React,{useEffect, useState, useRef} from 'react'
-import Nav_bar from '../../New_Menu_Components/Nav_bar'
-import Navitem from '../../New_Menu_Components/Navitem'
+// import Nav_bar from '../../New_Menu_Components/Nav_bar'
+// import Navitem from '../../New_Menu_Components/Navitem'
 import Inputfields from './Inputfields';
 import axios from 'axios';
 import './Register.css'
@@ -30,7 +30,7 @@ function Register() {
   const [confirmFocus, setConfirmFocus] = useState(false);
 
    const userref = useRef(null);
- // const errRef = useRef();
+
 
   useEffect(()=>{
      userref.current.focus();
@@ -100,13 +100,9 @@ function Register() {
 
     
     <div className='Register'>
-        <Nav_bar>
-            <a className='title'>Salt Water Rulez</a>
-            <Navitem>
-
-            </Navitem>
-        </Nav_bar>
-
+      <div className='titlo'>
+        <label className='name'>Salt Water Rulez</label>
+      </div>
 
         <>
           {success?

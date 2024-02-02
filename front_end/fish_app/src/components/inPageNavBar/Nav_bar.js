@@ -25,7 +25,9 @@ function Nav_bar(props) {
               navItems={navItems}
               navState={navState}>
 
-                {Item ==="Menu"? <DropdownMenu/> :<DropdownMenuProfile/> }
+                {Item ==="Menu"? <DropdownMenu
+                page={props.page}
+                /> :<DropdownMenuProfile/> }
                 
               </Navitem>
           )})

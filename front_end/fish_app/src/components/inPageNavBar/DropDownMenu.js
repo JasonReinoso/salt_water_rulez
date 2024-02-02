@@ -1,6 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-function DropdownMenu() {
+function DropdownMenu({page}) {
     function DropdownItem(props)
     {
         return(
@@ -14,8 +14,8 @@ function DropdownMenu() {
     <div className='dropdown'>
         <div className='menu'>
             <DropdownItem>
-                <Link to="/Regulations" className='Link' >
-                Regulation
+                <Link to={`/${page}`} className='Link' >
+                {page}
                 </Link>
             </DropdownItem>
             <DropdownItem>

@@ -5,21 +5,13 @@ import "./Navstyles.css"
 import useAuth from '../../hooks/useAuth'
 import { axiosPrivate } from '../../api/axios'
 import useAxiosPrivate from '../../hooks/useAxiosPrivate'
-import { useNavigate } from 'react-router-dom'
 import useLogOut from '../../hooks/useLogout'
 function NavBar() {
 
     // const {setAuth} = useAuth();
     // const axiosPrivate = useAxiosPrivate();
     const logout = useLogOut();
-    const navigate = useNavigate();
 
-    const signOut = async () =>{
-        await logout();
-        navigate('/Login');
-        
-    }
-  
     
   return (
     <nav className='nav'>
@@ -38,7 +30,7 @@ function NavBar() {
                 )
             })} 
             <li className ="Logout"
-              onClick={signOut}
+              onClick={logout}
             >
                 <span
                 >Logout</span>

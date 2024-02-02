@@ -1,13 +1,10 @@
 import React from 'react'
 import {useState,useEffect}  from 'react';
-import axios  from 'axios'
 import useAxiosPrivate from '../../hooks/useAxiosPrivate.js';
 import Regulation_Table from './Regulation_Table.js';
 import State_selector from './State_selector.js';
-import Regulation_nav_bar from './Regulation_nav_bar.js';
-import Navitem from './Navitem.js';
-import DropdownMenu from './DropdownMenu.js';
-import DropdownMenuProfile from './DropdownMenuProfile.js';
+import Nav_bar from '../inPageNavBar/Nav_bar.js'
+
 function Regulations() {
 
   const axiosPrivate = useAxiosPrivate();
@@ -39,19 +36,8 @@ function Regulations() {
 
   return (
     <div className='Regulations'>
-      <Regulation_nav_bar>
+      <Nav_bar title="Salt Water Rulez" page="Log"/>
 
-        <a className='title'>Salt Water Rulez</a>
-        <Navitem name ="Profile"> 
-          <DropdownMenuProfile/>
-        </Navitem>
-        <Navitem name ="Menu">
-          <DropdownMenu/>
-        </Navitem>
-
-      </Regulation_nav_bar>
-
-      
       <a className='page-title'>Regulation</a>
       <State_selector States ={States} getregulation ={getregulation} />
       <Regulation_Table Regulations= {rules}/>
